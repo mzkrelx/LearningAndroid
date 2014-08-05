@@ -1,7 +1,7 @@
 
-—ûK–â‘è 1‚Ì‰ğ“š—á
+ç·´ç¿’å•é¡Œ 1ã®è§£ç­”ä¾‹
 
-‚PjSystem.out.println()‚Ì‚İê‡
+ï¼‘ï¼‰System.out.println()ã®ã¿å ´åˆ
 for(int i=0;i<10;i++){
     String    temp = "";
     for(int j=0;j<i;j++){    
@@ -10,7 +10,7 @@ for(int i=0;i<10;i++){
     System.out.println(temp+"ABCDEF");
 }
 
-‚QjSystem.out.print()‚ğg‚Á‚½ê‡
+ï¼’ï¼‰System.out.print()ã‚’ä½¿ã£ãŸå ´åˆ
 for(int i=0;i<10;i++){
     for(int j=0;j<i;j++){    
         System.out.print(" ");
@@ -18,7 +18,7 @@ for(int i=0;i<10;i++){
     System.out.println("ABCDEF");
 }
 
-—ûK–â‘è 2‚Ì‰ğ“š—á
+ç·´ç¿’å•é¡Œ 2ã®è§£ç­”ä¾‹
 
 for(int i=1;i<=100;i++){
     if(i%15 == 0){
@@ -35,7 +35,7 @@ for(int i=1;i<=100;i++){
     }
 }
 
-—ûK–â‘è 3‚Ì‰ğ“š—á
+ç·´ç¿’å•é¡Œ 3ã®è§£ç­”ä¾‹
 
 int    a = 100;
 int    b = 300;
@@ -47,36 +47,36 @@ if(a < b){
 if(a < c){
     a = c;
 }
-System.out.println("Å‘å’l‚Í"+a);
+System.out.println("æœ€å¤§å€¤ã¯"+a);
 
-—ûK–â‘è 4‚Ì‰ğ“š—á
+ç·´ç¿’å•é¡Œ 4ã®è§£ç­”ä¾‹
 
-???‰~‚Ì”ƒ‚¢•¨‚ğ‚µ‚Ä1–œ‰~D‚ğo‚µ‚½‚Æ‚«‚Ì
-‚¨’Ş‚è‚ÌD‚Æd‰İ‚Ì–‡”‚ğ‚à‚Æ‚ß‚éƒvƒƒOƒ‰ƒ€‚ğì¬‚µ‚Ä‚­‚¾‚³‚¢
+???å††ã®è²·ã„ç‰©ã‚’ã—ã¦1ä¸‡å††æœ­ã‚’å‡ºã—ãŸã¨ãã®
+ãŠé‡£ã‚Šã®æœ­ã¨ç¡¬è²¨ã®æšæ•°ã‚’ã‚‚ã¨ã‚ã‚‹ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ä½œæˆã—ã¦ãã ã•ã„
 
 int    purchase = 2327;
 int    payment  = 10000;
 
 payment -= purchase;
-System.out.println("5000‰~D‚Í"+(payment/5000)+"–‡");
+System.out.println("5000å††æœ­ã¯"+(payment/5000)+"æš");
 payment %= 5000;
-System.out.println("1000‰~D‚Í"+(payment/1000)+"–‡");
+System.out.println("1000å††æœ­ã¯"+(payment/1000)+"æš");
 payment %= 1000;
-System.out.println("500‰~‹Ê‚Í"+(payment/500)+"–‡");
+System.out.println("500å††ç‰ã¯"+(payment/500)+"æš");
 payment %= 500;
-System.out.println("100‰~‹Ê‚Í"+(payment/100)+"–‡");
+System.out.println("100å††ç‰ã¯"+(payment/100)+"æš");
 payment %= 100;
-System.out.println("50‰~‹Ê‚Í"+(payment/50)+"–‡");
+System.out.println("50å††ç‰ã¯"+(payment/50)+"æš");
 payment %= 50;
-System.out.println("10‰~‹Ê‚Í"+(payment/10)+"–‡");
+System.out.println("10å††ç‰ã¯"+(payment/10)+"æš");
 payment %= 10;
-System.out.println("5‰~‹Ê‚Í"+(payment/5)+"–‡");
+System.out.println("5å††ç‰ã¯"+(payment/5)+"æš");
 payment %= 5;
-System.out.println("1‰~‹Ê‚Í"+payment+"–‡");
+System.out.println("1å††ç‰ã¯"+payment+"æš");
 
-—ûK–â‘è 5‚Ì‰ğ“š—á
+ç·´ç¿’å•é¡Œ 5ã®è§£ç­”ä¾‹
 
-int    data=5;    // ’i”
+int    data=5;    // æ®µæ•°
 int    i,j;
 
 for(i=0;i<data;i++){
@@ -86,12 +86,12 @@ for(i=0;i<data;i++){
     System.out.println("");
 }
 
-—ûK–â‘è 6‚Ì‰ğ“š—á
+ç·´ç¿’å•é¡Œ 6ã®è§£ç­”ä¾‹
 
-int    n=4;    // ’i”
+int    n=4;    // æ®µæ•°
 int    i,j;
 
-// ƒsƒ‰ƒ~ƒbƒh•\¦
+// ãƒ”ãƒ©ãƒŸãƒƒãƒ‰è¡¨ç¤º
 for(i=0;i<n;i++){
     for(j=0;j<=(n-i-1);j++){
         System.out.print(" ");
@@ -102,7 +102,7 @@ for(i=0;i<n;i++){
     System.out.println("");
 }
 
-—ûK–â‘è 7‚Ì‰ğ“š—á
+ç·´ç¿’å•é¡Œ 7ã®è§£ç­”ä¾‹
 
 int    data = 3501;
 
@@ -110,15 +110,15 @@ while(data > 0){
     System.out.print(data%10);
     data /= 10;
 }
-System.out.println("");
 
-—ûK–â‘è 8‚Ì‰ğ“š—á
+
+ç·´ç¿’å•é¡Œ 8ã®è§£ç­”ä¾‹
 
 int    a = 1;
 int    b = 1;
 int    c = 0;
 int    i = 0;
-int    n = 6;    // ‘æn€
+int    n = 6;    // ç¬¬né …
 
 for(i=2;i<n;i++){
     c = a+b;
@@ -126,9 +126,9 @@ for(i=2;i<n;i++){
     b = c;
 }
 System.out.println(
-    "ƒtƒBƒ{ƒiƒbƒ`”—ñ‚Ì‘æ" + n + "€‚ÍA" + b);
+    "ãƒ•ã‚£ãƒœãƒŠãƒƒãƒæ•°åˆ—ã®ç¬¬" + n + "é …ã¯ã€" + b);
 
-—ûK–â‘è 9‚Ì‰ğ“š—á
+ç·´ç¿’å•é¡Œ 9ã®è§£ç­”ä¾‹
 
 public static int getDays(int year,int month)
 {
@@ -145,7 +145,7 @@ public static int getDays(int year,int month)
     return 31;
 }
 
-—ûK–â‘è 10E11‚Ì‰ğ“š—á
+ç·´ç¿’å•é¡Œ 10ãƒ»11ã®è§£ç­”ä¾‹
 
 public class CoinCase {
     private int    conin1 = 0;
@@ -240,19 +240,19 @@ public static void main(String[] args) {
     coinCase.AddCoins(5, 1);
     coinCase.AddCoins(1, 2);
 
-    System.out.print("1‰~‹Ê‚ÍA"+coinCase.GetCount(1)+"–‡‚ÅA");
-    System.out.println(coinCase.GetAmount(1)+"‰~");
-    System.out.print("5‰~‹Ê‚ÍA"+coinCase.GetCount(5)+"–‡‚ÅA");
-    System.out.println(coinCase.GetAmount(5)+"‰~");
-    System.out.print("10‰~‹Ê‚ÍA"+coinCase.GetCount(10)+"–‡‚ÅA");
-    System.out.println(coinCase.GetAmount(10)+"‰~");
-    System.out.print("50‰~‹Ê‚ÍA"+coinCase.GetCount(50)+"–‡‚ÅA");
-    System.out.println(coinCase.GetAmount(50)+"‰~");
-    System.out.print("100‰~‹Ê‚ÍA"+coinCase.GetCount(100)+"–‡‚ÅA");
-    System.out.println(coinCase.GetAmount(100)+"‰~");
-    System.out.print("500‰~‹Ê‚ÍA"+coinCase.GetCount(500)+"–‡‚ÅA");
-    System.out.println(coinCase.GetAmount(500)+"‰~");
-    System.out.println("d‰İ‚Ì‘–‡”‚ÍA"+coinCase.GetCount()+"–‡");
-    System.out.println("‡Œv‹àŠz‚ÍA"+coinCase.GetAmount()+"‰~");
+    System.out.print("1å††ç‰ã¯ã€"+coinCase.GetCount(1)+"æšã§ã€");
+    System.out.println(coinCase.GetAmount(1)+"å††");
+    System.out.print("5å††ç‰ã¯ã€"+coinCase.GetCount(5)+"æšã§ã€");
+    System.out.println(coinCase.GetAmount(5)+"å††");
+    System.out.print("10å††ç‰ã¯ã€"+coinCase.GetCount(10)+"æšã§ã€");
+    System.out.println(coinCase.GetAmount(10)+"å††");
+    System.out.print("50å††ç‰ã¯ã€"+coinCase.GetCount(50)+"æšã§ã€");
+    System.out.println(coinCase.GetAmount(50)+"å††");
+    System.out.print("100å††ç‰ã¯ã€"+coinCase.GetCount(100)+"æšã§ã€");
+    System.out.println(coinCase.GetAmount(100)+"å††");
+    System.out.print("500å††ç‰ã¯ã€"+coinCase.GetCount(500)+"æšã§ã€");
+    System.out.println(coinCase.GetAmount(500)+"å††");
+    System.out.println("ç¡¬è²¨ã®ç·æšæ•°ã¯ã€"+coinCase.GetCount()+"æš");
+    System.out.println("åˆè¨ˆé‡‘é¡ã¯ã€"+coinCase.GetAmount()+"å††");
 }
 

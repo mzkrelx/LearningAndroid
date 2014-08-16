@@ -1,13 +1,16 @@
 package com.example.sample11;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,29 +22,11 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-        final EditText editText = (EditText)findViewById(R.id.editText1);
-        final TextView textView = (TextView)findViewById(R.id.textView1);
 
-        Button button = (Button)findViewById(R.id.button1);
-        button.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-            	String text = editText.getText().toString();
-            	textView.setText(text);
-				Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-			}
-		});
-        
-        Button button2 = (Button)findViewById(R.id.button2);
-        button2.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-            	Intent intent = null;
-            	intent = new Intent(Intent.ACTION_VIEW,Uri.parse("http://google.com/"));
-            	startActivity(intent);
-            }
-        });
-        
+		if (savedInstanceState == null) {
+			getFragmentManager().beginTransaction()
+					.add(R.id.container, new PlaceholderFragment()).commit();
+		}
 	}
 
 	@Override
@@ -63,4 +48,53 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	public static class PlaceholderFragment extends Fragment {
+
+//追加したコード
+		private	EditText editText = null;
+		private	TextView textView = null;
+//////////////////
+		
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_main, container,
+					false);
+//追加したコード
+            Button button = (Button)rootView.findViewById(R.id.button1);
+            button.setOnClickListener(mButton1Listener);
+            Button button2 = (Button)rootView.findViewById(R.id.button2);
+            button2.setOnClickListener(mButton2Listener);
+            editText = (EditText)rootView.findViewById(R.id.editText1);
+            textView = (TextView)rootView.findViewById(R.id.textView1);
+//////////////////			
+			return rootView;
+		}
+
+//追加したコード
+		private OnClickListener mButton1Listener = new OnClickListener() {
+            public void onClick(View v) {
+            	String text = editText.getText().toString();
+            	textView.setText(text);
+				Toast.makeText(getActivity(),
+						text, Toast.LENGTH_SHORT).show();
+            }
+        };
+		private OnClickListener mButton2Listener = new OnClickListener() {
+            public void onClick(View v) {
+            	Intent intent = null;
+            	intent = new Intent(Intent.ACTION_VIEW,Uri.parse("http://google.com/"));
+            	startActivity(intent);
+            }
+        };
+//////////////////	
+	}
+
 }

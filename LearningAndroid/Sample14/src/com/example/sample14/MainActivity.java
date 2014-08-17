@@ -10,7 +10,7 @@ import android.widget.Button;
 
 ////////////////////////////////////////////////
 //
-//	メール送信（エミュレータでは試せない）
+//	メール送信（メールアプリでアカウント設定が必要）
 //
 ////////////////////////////////////////////////
 
@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 	}
 	private OnClickListener mButton1Listener = new OnClickListener() {
         public void onClick(View v) {
-        	Uri uri=Uri.parse("mailto:test@test.com"); 
+        	Uri uri = Uri.parse("mailto:test@test.com"); 
       		Intent intent=new Intent(Intent.ACTION_SENDTO,uri); 
         	intent.putExtra(Intent.EXTRA_SUBJECT,"タイトル"); 
         	intent.putExtra(Intent.EXTRA_TEXT,"本文"); 

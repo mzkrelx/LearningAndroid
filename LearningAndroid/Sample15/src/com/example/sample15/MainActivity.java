@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
         public void onClick(View v) {
         	Intent intent = new Intent(MainActivity.this, SubActivity.class);
         	// データを送る
-        	intent.putExtra("StoreData", "TestData");
+        	intent.putExtra("Name", "TestData");
         	startActivity(intent); 
         }
     };

@@ -8,13 +8,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -52,9 +52,9 @@ public class MainActivity extends Activity {
 			String longitude= lonText.getText().toString();
 			String requestURL = "http://map.simpleapi.net/stationapi?y="
 					+ latitude + "&x=" + longitude +"&output=json";
-//			resText.setText(requestURL);
-    		Toast.makeText(getApplicationContext(), requestURL, 
-			Toast.LENGTH_LONG).show();
+			resText.setText(requestURL);
+			Log.d("REQUEST_URL", requestURL);
+    		Toast.makeText(getApplicationContext(), requestURL, Toast.LENGTH_LONG).show();
 			Task task = new Task();
 	        task.execute(requestURL);
 		}
@@ -70,31 +70,35 @@ public class MainActivity extends Activity {
             String rtn = "";
             try{
                 HttpResponse response = client.execute(get);
+                Log.d("EXECUTE", "Executed!!");
+                
                 StatusLine statusLine = response.getStatusLine();
+                Log.d("STATUS_LINE", "StatusCode = " + statusLine.getStatusCode());
+                
                 if(statusLine.getStatusCode() == HttpURLConnection.HTTP_OK){
                 	byte[] result = EntityUtils.toByteArray(response.getEntity());
                     rtn = new String(result, "UTF-8");
                 }
+            } catch (Exception e) {
+        		Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
             }
-            catch (Exception e) {
-            }
+            Log.d("RETURN", rtn);
             return rtn;
         }
         
         @Override
         protected void onPostExecute(String result)
         {
-           try {
-        	   // JSONArrayがエントリのため、これをしないと例外で落ちる
-        	   String jsonBase = "{\"root\":" + result + "}";
-        	   JSONObject json = new JSONObject(jsonBase);
-//       		Toast.makeText(getApplicationContext(), json.toString(), 
-//				Toast.LENGTH_LONG).show();
-        	   JSONObject obj   = json.getJSONArray("root").getJSONObject(0);
-        	   String name = obj.getString("name");
-        	   resText.setText(name );
-            }
-            catch (JSONException e) {
+			try {
+				// JSONArrayがエントリのため、これをしないと例外で落ちる
+				String jsonBase = "{\"root\":" + result + "}";
+				JSONObject json = new JSONObject(jsonBase);
+				Log.d("JSON_STRING", json.toString());
+				JSONObject obj = json.getJSONArray("root").getJSONObject(0);
+				String name = obj.getString("name");
+				resText.setText(name);
+			} catch (JSONException e) {
     			resText.setText("Json Error!!!" + e.getMessage());
                 e.printStackTrace();
             }

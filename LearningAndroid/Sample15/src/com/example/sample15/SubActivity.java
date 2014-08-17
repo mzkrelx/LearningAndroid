@@ -17,7 +17,7 @@ public class SubActivity extends Activity {
     
 		// データの受取
 		Intent intent = getIntent();
-        String arg = intent.getStringExtra("StoreData");
+        String arg = intent.getStringExtra("Name");
         Toast.makeText(this,arg, Toast.LENGTH_LONG).show();
 		
 		Button button = (Button)findViewById(R.id.button2);

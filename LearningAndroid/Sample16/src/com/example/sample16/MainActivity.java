@@ -20,7 +20,6 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -47,21 +46,33 @@ public class MainActivity extends Activity {
 	private OnClickListener mButton1Listener = new OnClickListener() {
 		public void onClick(View v) {
 	        if (locationManager != null) {
+	        	// 取得処理を終了
 	        	locationManager.removeUpdates(mLocationListener);
 	        }
         	locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        	// 3Gまたはwifiから位置情報を取得する設定
-            boolean networkFlg =  locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        	
             // GPSから位置情報を取得する設定
-            boolean gpsFlg = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000L, 0,mLocationListener);
-         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 0,mLocationListener);
+            boolean isGpsOn = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        	// 3Gまたはwifiから位置情報を取得する設定
+            boolean isWifiOn =  locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            String provider = null;
+			if (isGpsOn) {
+				provider = LocationManager.GPS_PROVIDER;
+			} else if (isWifiOn) {
+            	provider = LocationManager.NETWORK_PROVIDER;
+            } else {
+            	Toast.makeText(getApplicationContext(), "Wi-FiかGPSをONにしてください", Toast.LENGTH_LONG).show();
+            	return;
+            }
+			Toast.makeText(getApplicationContext(), "Provider=" + provider, Toast.LENGTH_LONG).show();
+			
+			// ロケーション取得を開始
+            locationManager.requestLocationUpdates(provider, 1000L, 0, mLocationListener);
         }
 	};
 
-	private  LocationListener mLocationListener  = new LocationListener() {
-        public void onStatusChanged(String provider, int status,
-                Bundle extras) {
+	private LocationListener mLocationListener = new LocationListener() {
+        public void onStatusChanged(String provider, int status, Bundle extras) {
         }
         public void onProviderEnabled(String provider) {
         }
@@ -71,16 +82,19 @@ public class MainActivity extends Activity {
         	String latitude = Double.toString(location.getLatitude());
         	String longitude = Double.toString(location.getLongitude());
         	String message = "";
-            message += ("Latitude"+latitude);
+            message += ("緯度："+latitude);
             message += "\n";
-            message += ("Longitude"+longitude);
+            message += ("経度："+longitude);
             message += "\n";
             message += ("Accuracy"+Float.toString(location.getAccuracy()));
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-            // 1回しか呼ばない
+            
+            // 位置情報の取得を1回しか行わないので取得をストップ
             locationManager.removeUpdates(mLocationListener);
-            //yahooMap(latitude,longitude);
-            getReuest(latitude,longitude);
+
+//            showYahooMap(latitude, longitude);
+            mailYahooMap(latitude, longitude);
+//            getRequest(latitude, longitude);
         }
     };
     
@@ -92,30 +106,37 @@ public class MainActivity extends Activity {
         super.onPause();
     }
 
-	private  void  yahooMap(String latitude,String longitude) {
-		String urlStrng = "http://map.yahoo.co.jp/maps?type=scroll&pointer=on&sc=2&lat=" + latitude;
-		urlStrng += "&lon=" + longitude;
-    	//////////////////////////////////////////
+	private void showYahooMap(String latitude, String longitude) {
+		String urlString = "http://map.yahoo.co.jp/maps?type=scroll&pointer=on&sc=2"
+				+ "&lat=" + latitude
+				+ "&lon=" + longitude;
+
 		// 地図をブラウザでみる
-		Intent intent = null;
-        intent = new Intent(Intent.ACTION_VIEW,Uri.parse(urlStrng));
-    	//////////////////////////////////////////
+		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+		startActivity(intent);
+	}
+	
+	private void mailYahooMap(String latitude, String longitude) {
+		String urlString = "http://map.yahoo.co.jp/maps?type=scroll&pointer=on&sc=2"
+				+ "&lat=" + latitude
+				+ "&lon=" + longitude;
+
 		// 地図をメールで送る
-//		Uri uri=Uri.parse("mailto:test@test.com"); 
-//  		Intent intent=new Intent(Intent.ACTION_SENDTO,uri); 
-//    	intent.putExtra(Intent.EXTRA_SUBJECT,"ここにいます"); 
-//    	intent.putExtra(Intent.EXTRA_TEXT,urlStrng); 
-//    	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-    	//////////////////////////////////////////
-    	startActivity(intent); 
+		Uri uri = Uri.parse("mailto:test@test.com"); 
+  		Intent intent = new Intent(Intent.ACTION_SENDTO, uri); 
+    	intent.putExtra(Intent.EXTRA_SUBJECT, "ここにいます"); 
+    	intent.putExtra(Intent.EXTRA_TEXT, urlString); 
+    	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    	
+    	startActivity(intent);
 	}
 
-	private	void	getReuest(String latitude,String longitude)
-	{
+	private	void getRequest(String latitude, String longitude) {
 		// お天気
 		// http://openweathermap.org/
-		String requestURL = "http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + latitude + "&lon=" + longitude
-			 +"&xmode=json&cnt=1";
+		String requestURL = "http://api.openweathermap.org/data/2.5/forecast/daily"
+				+ "?lat=" + latitude + "&lon=" + longitude
+				+ "&xmode=json&cnt=1";
 		// 逆ジオコーディングサービス
 		// http://www.finds.jp/wsdocs/rgeocode/index.html.ja
 //		String requestURL = "http://www.finds.jp/ws/rgeocode.php?json&lat=" + latitude + "&lon=" + longitude;
@@ -123,8 +144,7 @@ public class MainActivity extends Activity {
         task.execute(requestURL);
 	}
 
-	protected class Task extends AsyncTask<String, String, String>
-	{
+	protected class Task extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params)
         {
@@ -132,15 +152,14 @@ public class MainActivity extends Activity {
             HttpGet get = new HttpGet(params[0]);
             byte[] result = null;
             String rtn = "";
-            try{
+            try {
                 HttpResponse response = client.execute(get);
                 StatusLine statusLine = response.getStatusLine();
                 if(statusLine.getStatusCode() == HttpURLConnection.HTTP_OK){
                     result = EntityUtils.toByteArray(response.getEntity());
                     rtn = new String(result, "UTF-8");
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
             return rtn;
         }
